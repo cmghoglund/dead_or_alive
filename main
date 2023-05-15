@@ -1,34 +1,52 @@
 # Program that calculates how many days someone has been dead or alive based on their date of death (dod) or date of birth (dob)
 
-# TODO Add input validation and error handling
-# TODO Add functionality to handle also dead users
 # TODO Separate all logic into dedicated functions
+# TODO Clear and redraw screen between invalid inputs to avoid scrolling
+# TODO Fix singular/plural formatting when printing result
 
 import datetime
 
-def calculate_age_in_days(year, month, day):
+def calculate_days(year, month, day):
     # Get today's date
     today = datetime.date.today()
 
     # Create a date object from the user's input
-    dob = datetime.date(year, month, day)
+    date = datetime.date(year, month, day)
 
     # Calculate the number of days between the two dates
-    age_in_days = (today - dob).days
+    time_in_days = (today - date).days
 
-    return age_in_days
+    return time_in_days
 
-# Get the user's date of birth
+# Ask the user if they are dead or alive
 while True:
-    try:
-        year, month, day = map(int, input("\nEnter your date of birth (YYYY-MM-DD): ").split('-'))
+    status = input("\nAre you dead or alive? ").lower()
+    #TODO Make code DRY by consolidating below logic for dead and alive users
+    if status == "dead":
+        # Get the user's date of death
+        while True:
+            try:
+                year, month, day = map(int, input("\nEnter your date of death (YYYY-MM-DD): ").split('-'))
+                break
+            except ValueError:
+                print("\nInvalid date format, please enter in the format YYYY-MM-DD.")
+        # Calculate the number of days dead
+        days_dead = calculate_days(year, month, day)
+        # Print the result
+        print(f"\nYou have been dead for {days_dead} days.\n")
         break
-    except ValueError:
-        print("Invalid date format, please enter in the format YYYY-MM-DD.")
-# TODO Clear and redraw screen between invalid inputs to avoid scrolling
-
-# Calculate the user's age in days
-age_in_days = calculate_age_in_days(year, month, day)
-
-# Print the result
-print(f"\nYou have lived for {age_in_days} days.\n")
+    elif status == "alive":
+        # Get the user's date of birth
+        while True:
+            try:
+                year, month, day = map(int, input("\nEnter your date of birth (YYYY-MM-DD): ").split('-'))
+                break
+            except ValueError:
+                print("\nInvalid date format, please enter in the format YYYY-MM-DD.")
+        # Calculate the number of days alive
+        days_alive = calculate_days(year, month, day)
+        # Print the result
+        print(f"\nYou have lived for {days_alive} days.\n")
+        break
+    else:
+        print("\nInvalid input, please enter 'dead' or 'alive'.")
