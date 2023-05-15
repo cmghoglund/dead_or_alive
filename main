@@ -17,10 +17,7 @@ def calculate_days(year, month, day):
     return days
 
 def print_result(status, days):
-    if status == "dead":
-        print(f"\nYou have been dead for {days} days.\n")
-    elif status == "alive":
-        print(f"\nYou have lived for {days} days.\n")
+    print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} days.\n")
 
 # Main program loop -> Ask the user if they are dead or alive
 while True:
