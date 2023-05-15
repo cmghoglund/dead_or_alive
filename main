@@ -1,9 +1,16 @@
 # Program that calculates how many days someone has been dead or alive based on their date of death (dod) or date of birth (dob)
 
-# TODO Separate all logic into dedicated functions
 # TODO Clear and redraw screen between invalid inputs to avoid scrolling
 
 import datetime
+
+def get_user_status():
+    while True:
+        status = input("\nAre you dead or alive? ").lower()
+        if status == "dead" or status == "alive":
+            return status
+        else:
+            print("\nInvalid input, please enter 'dead' or 'alive'.")
 
 def get_date_input(prompt):
     while True:
@@ -27,16 +34,23 @@ def print_result(status, days):
     plural = "" if days == 1 else "s"
     print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} day{plural}.\n")
 
-# Main program loop -> Ask the user if they are dead or alive
+def main():
+    status = get_user_status()
+
+    # Get the user's date of death or birth
+    prompt = f"\nEnter your date of {'death' if status == 'dead' else 'birth'} (YYYY-MM-DD): "
+    year, month, day = get_date_input(prompt)
+
+    # Calculate the number of days dead or alive
+    days = calculate_days(year, month, day)
+
+    print_result(status, days)
+
+# Main program loop
 while True:
-    status = input("\nAre you dead or alive? ").lower() # Get user status
-    if status == "dead" or status == "alive":
-        # Get the user's date of death or birth
-        prompt = f"\nEnter your date of {'death' if status == 'dead' else 'birth'} (YYYY-MM-DD): "
-        year, month, day = get_date_input(prompt)
-        # Calculate the number of days dead or alive
-        days = calculate_days(year, month, day)
-        print_result(status, days)
+    main()
+    #TODO Create function to validate below user input
+    choice = input("Do you want to calculate again? (Yes/No): ")
+    if choice.lower() == "no":
+        print()
         break
-    else:
-        print("\nInvalid input, please enter 'dead' or 'alive'.")
