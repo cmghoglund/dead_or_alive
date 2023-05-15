@@ -2,7 +2,6 @@
 
 # TODO Separate all logic into dedicated functions
 # TODO Clear and redraw screen between invalid inputs to avoid scrolling
-# TODO Fix singular/plural formatting when printing result (only applies if user has been dead/alive for just 1 day)
 
 import datetime
 
@@ -17,7 +16,7 @@ def calculate_days(year, month, day):
     return days
 
 def print_result(status, days):
-    print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} days.\n")
+    print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} {'day' if days == 1 else 'days'}.\n")
 
 # Main program loop -> Ask the user if they are dead or alive
 while True:
