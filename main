@@ -1,0 +1,26 @@
+# Program that calculates how many days someone has been dead or alive based on their date of birth (dob)
+
+import datetime
+
+def calculate_age_in_days(year, month, day):
+    # Get today's date
+    today = datetime.date.today()
+
+    # Create a date object from the user's input
+    dob = datetime.date(year, month, day)
+
+    # Calculate the number of days between the two dates
+    age_in_days = (today - dob).days
+
+    return age_in_days
+
+# Get the user's date of birth
+year = int(input("\nEnter your birth year (YYYY): "))
+month = int(input("Enter your birth month (MM): "))
+day = int(input("Enter your birth day (DD): "))
+
+# Calculate the user's age in days
+age_in_days = calculate_age_in_days(year, month, day)
+
+# Print the result
+print(f"\nYou have lived for {age_in_days} days.\n")
