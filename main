@@ -17,23 +17,22 @@ def get_date_input(prompt):
     while True:
         try:
             date_input = input(prompt)
-            year, month, day = map(int, date_input.split('-'))
-            return year, month, day
+            date = datetime.datetime.strptime(date_input, "%Y-%m-%d").date()
+            return date
         except ValueError:
             print("\nInvalid date format, please enter in the format YYYY-MM-DD.")
 
-def calculate_days(year, month, day):
+def calculate_days(date):
     # Get today's date
     today = datetime.date.today()
-    # Create a date object from the user's input
-    date = datetime.date(year, month, day)
     # Calculate the number of days between the two dates
     days = (today - date).days
     return days
 
 def print_result(status, days):
     plural = "" if days == 1 else "s"
-    print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} day{plural}.\n")
+    verb = "been dead" if status == "dead" else "lived"
+    print(f"\nYou have {verb} for {days} day{plural}.\n")
 
 def get_yes_no_input(prompt):
     while True:
@@ -50,10 +49,10 @@ def main():
 
     # Get the user's date of death or birth
     prompt = f"\nEnter your date of {'death' if status == 'dead' else 'birth'} (YYYY-MM-DD): "
-    year, month, day = get_date_input(prompt)
+    date = get_date_input(prompt)
 
     # Calculate the number of days dead or alive
-    days = calculate_days(year, month, day)
+    days = calculate_days(date)
 
     print_result(status, days)
 
