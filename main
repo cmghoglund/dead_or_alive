@@ -3,6 +3,7 @@
 # TODO Clear and redraw screen between invalid inputs to avoid scrolling
 
 import datetime
+import sys
 
 def get_user_status():
     while True:
@@ -34,6 +35,16 @@ def print_result(status, days):
     plural = "" if days == 1 else "s"
     print(f"\nYou have {'been dead' if status == 'dead' else 'lived'} for {days} day{plural}.\n")
 
+def get_yes_no_input(prompt):
+    while True:
+        user_choice = input(f"{prompt} (y/n or yes/no) ").strip().lower()
+        if user_choice in ['y', 'yes']:
+            return True
+        elif user_choice in ['n', 'no']:
+            return False
+        else:
+            print("\nPlease enter a valid response (y/n or yes/no).\n")
+
 def main():
     status = get_user_status()
 
@@ -49,8 +60,7 @@ def main():
 # Main program loop
 while True:
     main()
-    #TODO Create function to validate below user input
-    choice = input("Do you want to calculate again? (Yes/No): ")
-    if choice.lower() == "no":
-        print()
-        break
+    prompt = "Do you want to calculate again?"
+    user_choice = get_yes_no_input(prompt)
+    if not user_choice:
+        sys.exit("\nThank you for using the program!\n")
